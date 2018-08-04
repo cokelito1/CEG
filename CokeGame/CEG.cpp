@@ -22,7 +22,7 @@ namespace CEG {
 		mapMngr = new MapManager(this);
 
 		sf::Image imgTest;
-		imgTest.loadFromFile("./cross.png");
+		imgTest.loadFromFile("./test.png");
 
 		graphicMngr->addImage(imgTest);	
 
