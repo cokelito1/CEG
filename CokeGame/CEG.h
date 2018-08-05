@@ -18,6 +18,7 @@ namespace CEG {
 		void run();
 
 		sf::RenderWindow *GetWindow();
+		sf::Font gameFont;
 
 		TileManager *GetTileManager();
 		GraphicManager *GetGraphicManager();

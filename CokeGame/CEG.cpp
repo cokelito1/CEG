@@ -44,10 +44,7 @@ namespace CEG {
 		}
 
 		std::vector<int> testMap;
-		for (int i = 0; i < (25 * 17) / 2 + 1; i++) {
-			testMap.push_back(0);
-			testMap.push_back(1);
-		}
+		testMap.push_back(0);
 		//testMap.push_back(1);
 
 		mapMngr->addMap(testMap);
@@ -99,7 +96,10 @@ namespace CEG {
 				mapMngr->tiles->at(i).clickable = false;
 			}
 		}
+		
+		gameFont.loadFromFile("font.ttf");
 
+		window->setFramerateLimit(60);
 		std::cout << "Tiempo de construccion de CEG: " << t1.getElapsedTime().asSeconds() << " segundos" << std::endl;
 	}
 
@@ -182,7 +182,7 @@ restart:
 												break;
 											}
 
-											cross[currentCross].setPosition(((float)Xax * 32) - 64, ((float)Yax * 32) - 64);
+											cross[currentCross].setPosition(((float)Xax * 32) - cross[currentCross].getTexture()->getSize().x / 2, ((float)Yax * 32) - cross[currentCross].getTexture()->getSize().y / 2);
 											gameState[(Yax / 6) * 3 + (Xax / 8)] = 0;
 											currentTurn = 1;
 											if (currentCross < 5) {
@@ -205,6 +205,9 @@ restart:
 							}
 						}
 						break;
+					}
+					else {
+						goto restart;
 					}
 					break;
 				case sf::Event::KeyPressed:
@@ -303,13 +306,34 @@ restart:
 				}
 			}
 			else if (gameStatus == 1) {
+				sf::Text text;
+				text.setFont(gameFont);
+				text.setString("Ganaste\n click para volver a empezar");
+				text.setCharacterSize(24);
+				text.setFillColor(sf::Color::Black);
+				text.setPosition((window->getSize().x / 2) - text.getCharacterSize(), (window->getSize().y / 2) - text.getCharacterSize());
 				window->clear(sf::Color::Green);
+				window->draw(text);
 			}
 			else if (gameStatus == 2) {
+				sf::Text text;
+				text.setFont(gameFont);
+				text.setString("Perdiste\n click para volver a empezar");
+				text.setCharacterSize(24);
+				text.setFillColor(sf::Color::Black);
+				text.setPosition((window->getSize().x / 2) - text.getCharacterSize(), (window->getSize().y / 2) - text.getCharacterSize());
 				window->clear(sf::Color::Red);
+				window->draw(text);
 			}
 			else if (gameStatus == 3) {
+				sf::Text text;
+				text.setFont(gameFont);
+				text.setString("Empate\n click para volver a empezar");
+				text.setCharacterSize(24);
+				text.setFillColor(sf::Color::Black);
+				text.setPosition((window->getSize().x / 2) - text.getCharacterSize(), (window->getSize().y / 2) - text.getCharacterSize());
 				window->clear(sf::Color::Yellow);
+				window->draw(text);
 			}
 			window->display();
 		}
